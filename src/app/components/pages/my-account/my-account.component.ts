@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
 import { AuthService } from 'src/app/service/auth.service';
+import {HttpClient} from "@angular/common/http";
+import {UserService} from "../../../service/user.service";
 
 @Component({
   selector: 'app-my-account',
@@ -9,18 +11,19 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class MyAccountComponent implements OnInit {
   socialUser: SocialUser;
-  isLoggedin: boolean;  
+  isLoggedin: boolean;
   private authService: AuthService;
-  
+
   constructor(
-    private socialAuthService: SocialAuthService
-  ) { 
+    private socialAuthService: SocialAuthService,
+    private httpClient: HttpClient,
+    private userService: UserService
+  ) {
     this.authService = new AuthService();
   }
-
   ngOnInit() {
-     
-    
+
+
     this.socialAuthService.authState.subscribe((user) => {
       this.socialUser = user;
       this.isLoggedin = (user != null);
@@ -30,9 +33,11 @@ export class MyAccountComponent implements OnInit {
 
   loginWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID)
-      .then(d => console.log(
-        this.authService.generateToken(d.authToken)
-      ))
+      .then(d =>
+        this.userService.login(d.idToken).subscribe(user=>{
+          this.authService.setUser(user)
+        })
+      )
       .catch(error => {
         console.log(error);
       });

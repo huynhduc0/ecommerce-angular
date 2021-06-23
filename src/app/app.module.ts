@@ -1,22 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DemoComponent } from './components/demo/demo.component';
-import { NgxSpinnerModule } from "ngx-spinner";
-import { NgxImgZoomModule } from 'ngx-img-zoom';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DemoComponent} from './components/demo/demo.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {NgxImgZoomModule} from 'ngx-img-zoom';
+import {UserService} from  './service/user.service'
+
+import {MainComponent} from './components/main/main.component';
 
 
-import { MainComponent } from './components/main/main.component';
-
-
-
-import { AppRoutingModule } from './app-routing.module';
-import { ShopModule } from './components/shop/shop.module';
-import { SharedModule } from './components/shared/shared.module';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 'angularx-social-login';
+import {AppRoutingModule} from './app-routing.module';
+import {ShopModule} from './components/shop/shop.module';
+import {SharedModule} from './components/shared/shared.module';
+import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
+import {BannerService} from "./components/shop/home-five/banner.service";
 
 
 @NgModule({
@@ -24,24 +24,21 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
     AppComponent,
     DemoComponent,
     MainComponent
-
-
-
   ],
   imports: [
     NgxSpinnerModule,
     BrowserModule,
+    HttpClientModule,
     SharedModule,
     ShopModule,
-    HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
     NgxImgZoomModule,
-    SocialLoginModule
+    SocialLoginModule,
   ],
-  providers: [ {
+  providers: [{
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -54,7 +51,10 @@ import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from 
         },
       ]
     } as SocialAuthServiceConfig,
-  }],
+  },UserService,
+    BannerService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

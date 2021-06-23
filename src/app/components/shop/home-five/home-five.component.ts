@@ -3,6 +3,8 @@ import { ProductService } from '../../shared/services/product.service';
 import { CartService } from '../../shared/services/cart.service';
 import { CartItem } from 'src/app/modals/cart-item';
 import { Product } from 'src/app/modals/product.model';
+import {BannerService} from "./banner.service";
+import {Banner} from "./banner.model";
 
 @Component({
   selector: 'app-home-five',
@@ -13,18 +15,19 @@ export class HomeFiveComponent implements OnInit {
   products: Product[];
   shoppingCartItems: CartItem[] = [];
 
-  public slides = [
-    { title: 'Huge sale', subtitle: 'Up to 70%', image: 'assets/images/carousel/banner1.jpg' },
-    { title: 'Biggest discount', subtitle: 'Check the promotion', image: 'assets/images/carousel/banner2.jpg' },
-    { title: 'Biggest sale', subtitle: 'Dont miss it', image: 'assets/images/carousel/banner3.jpg' },
-    { title: 'Our best products', subtitle: 'Special selection', image: 'assets/images/carousel/banner4.jpg' },
-    { title: 'Massive sale', subtitle: 'Only for today', image: 'assets/images/carousel/banner5.jpg' }
-  ];
+  // public slides = [
+  //   { title: 'Huge sale', subtitle: 'Up to 70%', image: 'assets/images/carousel/banner1.jpg' },
+  //   { title: 'Biggest discount', subtitle: 'Check the promotion', image: 'assets/images/carousel/banner2.jpg' },
+  //   { title: 'Biggest sale', subtitle: 'Dont miss it', image: 'assets/images/carousel/banner3.jpg' },
+  //   { title: 'Our best products', subtitle: 'Special selection', image: 'assets/images/carousel/banner4.jpg' },
+  //   { title: 'Massive sale', subtitle: 'Only for today', image: 'assets/images/carousel/banner5.jpg' }
+  // ];
 
-  constructor(private productService: ProductService, private cartService: CartService) { }
+  public slides:Banner[] = [];
+
+  constructor(private productService: ProductService, private cartService: CartService, private bannerService: BannerService) { }
 
   ngOnInit() {
-
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
     this.productService.getProducts()
     .subscribe(
@@ -32,6 +35,11 @@ export class HomeFiveComponent implements OnInit {
       this.products = product;
       }
     )
+    console.log("j")
+    this.bannerService.getBanner().subscribe(banners =>
+      this.slides =  banners
+    );
+
   }
 
 

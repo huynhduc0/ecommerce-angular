@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wrapper';
+import {Banner} from "../home-five/banner.model";
+import {MEDIA_URL} from "../../../constant/url.constant";
+
 
 @Component({
   selector: 'app-main-carousel',
@@ -8,19 +11,20 @@ import { SwiperConfigInterface, SwiperPaginationInterface } from 'ngx-swiper-wra
 })
 export class MainCarouselComponent implements OnInit {
 
-  @Input('slides') slides: Array<any> = [];
+  @Input('slides') slides: Array<Banner> = [];
 
   public config: SwiperConfigInterface = {};
-
+  public baseMediaUrl: string = MEDIA_URL;
   private pagination: SwiperPaginationInterface = {
     el: '.swiper-pagination',
     clickable: true
   };
 
-  constructor() { }
+  constructor() {
+    console.log("jjjj",this.baseMediaUrl)
+  }
 
   ngOnInit() { }
-
   ngAfterViewInit(){
     this.config = {
       slidesPerView: 1,

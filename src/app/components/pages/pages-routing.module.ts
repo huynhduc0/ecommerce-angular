@@ -9,9 +9,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FaqComponent } from './faq/faq.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-
-
-
+import {AuthService} from "../../service/auth.service";
 
 const routes: Routes = [
   {
@@ -24,7 +22,7 @@ const routes: Routes = [
       { path: 'contact', component: ContactComponent },
       { path: 'wishlist', component: WishlistComponent },
       { path: 'compare', component: CompareComponent },
-      { path: 'my-account', component: MyAccountComponent },
+      { path: 'my-account', component: !new AuthService().loggedInUserValue ?MyAccountComponent:CartComponent },
       { path: 'error', component: ErrorPageComponent },
     ]
   }

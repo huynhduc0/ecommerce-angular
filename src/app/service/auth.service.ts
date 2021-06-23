@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GoogleLoginProvider, SocialAuthService } from 'angularx-social-login';
+import {GOOGLE_LOGIN_URL} from "../constant/url.constant";
+import {UserAndToken} from "../modals/user.model";
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService implements OnInit {
-  
+
   public baseUrl = "localhost:8000";
-  private loggedUserSubject: BehaviorSubject<User>;
+  private loggedUserSubject: BehaviorSubject<UserAndToken>;
   public loggedInUser: Observable<any>;
   private http: HttpClient;
   private socialAuthService: SocialAuthService;
@@ -17,6 +20,8 @@ export class AuthService implements OnInit {
   private isLoggedin: boolean;
   constructor() {
     const getLoggedUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    this.loggedUserSubject = new BehaviorSubject(getLoggedUser);
+    this.loggedInUser = this.loggedUserSubject.asObservable();
     this.loggedUserSubject = new BehaviorSubject(getLoggedUser);
     this.loggedInUser = this.loggedUserSubject.asObservable();
     // this.socialAuthService =
@@ -31,7 +36,7 @@ export class AuthService implements OnInit {
   }
 
   loginUser(emailAddress: string, password: string) {
-    return this.http.post<User>(`${this.baseUrl}/`, { emailAddress, password })
+    return this.http.post<UserAndToken>(`${this.baseUrl}/`, { emailAddress, password })
       .pipe(map(response => {
         localStorage.setItem('loggedInUser', JSON.stringify(response));
         this.loggedUserSubject.next(response);
@@ -44,6 +49,13 @@ export class AuthService implements OnInit {
     localStorage.removeItem('loggedInUser');
     this.loggedUserSubject.next(null);
   }
+  setUser(user){
+    localStorage.setItem('loggedInUser', JSON.stringify(user));
+    this.loggedUserSubject.next(user);
+    console.log(user);
+    return user;
+  }
+
   public get loggedInUserValue() {
     return this.loggedUserSubject.value;
   }
@@ -54,7 +66,14 @@ export class AuthService implements OnInit {
     this.socialAuthService.refreshAuthToken(GoogleLoginProvider.PROVIDER_ID);
   }
   generateToken(authToken: string): boolean {
-    
+    const formData = new FormData();
+    formData.append("oAuthToken",authToken)
+    formData.append("platform","WEB")
+    formData.append("isShop","true")
+    this.http.post<any>(GOOGLE_LOGIN_URL, formData).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
     return true
   }
 

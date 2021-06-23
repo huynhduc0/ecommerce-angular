@@ -10,3 +10,7 @@ interface User{
     status: StatusType,
     dateOfBirth?: Date
 }
+export class UserAndToken {
+  token: string
+  user: User
+}
