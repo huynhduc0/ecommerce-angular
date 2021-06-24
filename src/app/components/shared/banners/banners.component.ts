@@ -12,6 +12,7 @@ export class BannersComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("BANNER INIT VIEW");
   }
 
   public getBanner(index){

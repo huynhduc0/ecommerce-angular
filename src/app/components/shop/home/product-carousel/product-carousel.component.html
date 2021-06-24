@@ -4,7 +4,7 @@
                 <mat-card fxLayout="column">
                     <div class="product-img">
                         <a class="product-link" [routerLink]="['/home/product', product.id]">
-                          <img [src]="product.pictures[0].big" alt="">
+                          <img [src]="image + product.medias[0].mediaPath" alt="">
                        </a>
                     </div>
                      <div class="product-info-wrapper">
@@ -12,7 +12,9 @@
                         <div class="title-wrap">
                            <h4>{{product.name}}</h4>
                         </div>
+
                         <div class="stars">
+                          <!-- <app-star-rating [rating]="2"></app-star-rating> -->
                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
@@ -20,7 +22,7 @@
                            <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
                         </div>
                         <div class="price-wrap" fxLayout="row" fxLayoutAlign="space-between center">
-                         <p>${{product.price | number : '1.2-2'}}</p>
+                         <p>${{product.productProperties[0].options[0].subPrice | number : '1.2-2'}}</p>
                         <a (click)="addToCart(product)"><mat-icon class="mat-icon-lg mat-icon material-icons">shopping_cart</mat-icon></a>
                         </div>
                         <div class="icons" fxLayout="column">

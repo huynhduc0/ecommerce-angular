@@ -1,3 +1,5 @@
+import { ProductOption, ProductProperties } from './../../../../modals/product-properties.model';
+import { MEDIA_URL } from './../../../../constant/url.constant';
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import {  SwiperDirective } from 'ngx-swiper-wrapper';
@@ -8,21 +10,35 @@ import { ProductDialogComponent } from '../../products/product-dialog/product-di
 import { CartService } from 'src/app/components/shared/services/cart.service';
 import { ProductService } from 'src/app/components/shared/services/product.service';
 import { WishlistService } from 'src/app/components/shared/services/wishlist.service';
+import { Products } from 'src/app/modals/product-vip.model';
 
 @Component({
   selector: 'app-product-carousel',
   templateUrl: './product-carousel.component.html',
   styleUrls: ['./product-carousel.component.sass']
 })
+
 export class ProductCarouselComponent implements OnInit {
   @Output() onOpenProductDialog: EventEmitter<any> = new EventEmitter();
-  @Input('product') product: Array<Product> = [];
+  @Input('product') product: Array<Products> = [];
   public config: SwiperConfigInterface = {};
+  public image = MEDIA_URL;
+  public productProperties: ProductProperties[];
+  public option: ProductOption[];
+  public rating = 4;
   constructor(private dialog: MatDialog, private router: Router, private cartService: CartService, private productService: ProductService, private wishlistService: WishlistService) { }
 
   ngOnInit() {
+    this.product.forEach(e => {
+      this.productProperties = e.productProperties
+      this.productProperties.forEach(i => {
+        this.option = i.options
+      })
+
+    });
   }
   ngAfterViewInit(){
+
     this.config = {
       observer: true,
       slidesPerView: 5,

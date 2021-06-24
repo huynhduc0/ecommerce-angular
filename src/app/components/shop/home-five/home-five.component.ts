@@ -1,3 +1,4 @@
+import { RecommendService } from './recommed.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../shared/services/product.service';
 import { CartService } from '../../shared/services/cart.service';
@@ -5,6 +6,7 @@ import { CartItem } from 'src/app/modals/cart-item';
 import { Product } from 'src/app/modals/product.model';
 import {BannerService} from "./banner.service";
 import {Banner} from "./banner.model";
+import { Products } from 'src/app/modals/product-vip.model';
 
 @Component({
   selector: 'app-home-five',
@@ -14,7 +16,7 @@ import {Banner} from "./banner.model";
 export class HomeFiveComponent implements OnInit {
   products: Product[];
   shoppingCartItems: CartItem[] = [];
-
+  recommendProducts: Products[];
   // public slides = [
   //   { title: 'Huge sale', subtitle: 'Up to 70%', image: 'assets/images/carousel/banner1.jpg' },
   //   { title: 'Biggest discount', subtitle: 'Check the promotion', image: 'assets/images/carousel/banner2.jpg' },
@@ -25,7 +27,7 @@ export class HomeFiveComponent implements OnInit {
 
   public slides:Banner[] = [];
 
-  constructor(private productService: ProductService, private cartService: CartService, private bannerService: BannerService) { }
+  constructor(private recommendSerivce: RecommendService,private productService: ProductService, private cartService: CartService, private bannerService: BannerService) { }
 
   ngOnInit() {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
@@ -39,7 +41,14 @@ export class HomeFiveComponent implements OnInit {
     this.bannerService.getBanner().subscribe(banners =>
       this.slides =  banners
     );
-
+    console.log("dmmm")
+    this.recommendSerivce.getRecommendProduct().subscribe((prod) => {
+      // console.log(prod)
+      this.recommendProducts = prod;
+      for (let i of this.recommendProducts){
+        console.log(i.productProperties);
+      }
+    })
   }
 
 

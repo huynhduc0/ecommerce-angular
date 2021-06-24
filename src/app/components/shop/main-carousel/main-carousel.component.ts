@@ -24,7 +24,9 @@ export class MainCarouselComponent implements OnInit {
     console.log("jjjj",this.baseMediaUrl)
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
   ngAfterViewInit(){
     this.config = {
       slidesPerView: 1,

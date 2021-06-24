@@ -38,20 +38,20 @@
 
                         <mat-tab  label="FEATURED PRODUCTS">
 
-                                 <app-product-carousel [product]="products | slice:0:8"></app-product-carousel>
+                                 <app-product-carousel [product]="recommendProducts | slice:0:8"></app-product-carousel>
 
 
                         </mat-tab>
 
                         <mat-tab label="LATEST PRODUCTS">
 
-                                <app-product-carousel [product]="products | slice:5:13"></app-product-carousel>
+                                <app-product-carousel [product]="recommendProducts | slice:5:13"></app-product-carousel>
 
                         </mat-tab>
 
                         <mat-tab label="ON SALE PRODUCTS">
 
-                                  <app-product-carousel [product]="products | slice:13:22"></app-product-carousel>
+                                  <app-product-carousel [product]="recommendProducts | slice:13:22"></app-product-carousel>
 
                         </mat-tab>
 

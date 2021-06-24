@@ -1,3 +1,6 @@
+import { StarRatingModule } from 'angular-rating-star';
+import { CategoriesService } from './components/shared/categories-menu/categories.service';
+
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
@@ -23,7 +26,7 @@ import {BannerService} from "./components/shop/home-five/banner.service";
   declarations: [
     AppComponent,
     DemoComponent,
-    MainComponent
+    MainComponent,
   ],
   imports: [
     NgxSpinnerModule,
@@ -37,6 +40,7 @@ import {BannerService} from "./components/shop/home-five/banner.service";
     AppRoutingModule,
     NgxImgZoomModule,
     SocialLoginModule,
+    StarRatingModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',
@@ -52,7 +56,8 @@ import {BannerService} from "./components/shop/home-five/banner.service";
       ]
     } as SocialAuthServiceConfig,
   },UserService,
-    BannerService
+    BannerService,
+    CategoriesService,
   ],
   bootstrap: [AppComponent]
 })
