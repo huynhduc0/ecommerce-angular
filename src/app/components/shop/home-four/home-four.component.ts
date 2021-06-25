@@ -1,3 +1,4 @@
+import { Products } from 'src/app/modals/product-vip.model';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { ProductService } from '../../shared/services/product.service';
@@ -24,7 +25,7 @@ export class HomeFourComponent implements OnInit {
   ]
   public flag:any;
 
-  products: Product[];
+  products: Products[];
 
   indexProduct: number;
   shoppingCartItems: CartItem[] = [];
@@ -54,7 +55,7 @@ export class HomeFourComponent implements OnInit {
 
  this.productService.getProducts()
  .subscribe(
-   (product: Product[]) => {
+   (product: Products[]) => {
      this.products = product
    }
  )

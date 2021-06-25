@@ -19,7 +19,7 @@
               <div class="mat-header-cell">Action</div>
            </div>
            <div *ngFor="let item of shoppingCartItems"  class="mat-row">
-              <div class="mat-cell"><img [src]="item.product.pictures[0].small"></div>
+              <div class="mat-cell"><img [src]="imageUrl+item.product.medias[0].mediaPath"></div>
               <div class="mat-cell"><a  class="product-name">{{item.product.name}}</a></div>
               <div class="mat-cell price">{{item.product.price | number : '1.2-2'}}</div>
               <div class="mat-cell text-muted">

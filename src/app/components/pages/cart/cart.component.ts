@@ -1,3 +1,4 @@
+import { MEDIA_URL } from './../../../constant/url.constant';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { CartItem } from 'src/app/modals/cart-item';
@@ -12,13 +13,12 @@ export class CartComponent implements OnInit {
 
   public cartItems : Observable<CartItem[]> = of([]);
   public shoppingCartItems  : CartItem[] = [];
-
+  public imageUrl = MEDIA_URL
   constructor(private cartService: CartService) { }
 
   ngOnInit() {
     this.cartItems = this.cartService.getItems();
     this.cartItems.subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
-
   }
 
 

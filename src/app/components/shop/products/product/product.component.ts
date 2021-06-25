@@ -1,3 +1,4 @@
+import { Products } from 'src/app/modals/product-vip.model';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CartService } from 'src/app/components/shared/services/cart.service';
 import { ProductService } from 'src/app/components/shared/services/product.service';
@@ -23,7 +24,7 @@ export class ProductComponent implements OnInit {
   }
 
      // Add to cart
-     public addToCart(product: Product,  quantity: number = 1) {
+     public addToCart(product: Products,  quantity: number = 1) {
       this.cartService.addToCart(product,quantity);
       console.log(product, quantity);
     }

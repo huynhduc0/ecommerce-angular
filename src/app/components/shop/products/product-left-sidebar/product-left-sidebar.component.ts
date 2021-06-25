@@ -1,3 +1,4 @@
+import { Products } from './../../../../modals/product-vip.model';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/components/shared/services/product.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -18,9 +19,9 @@ export class ProductLeftSidebarComponent implements OnInit {
   public viewCol: number = 25;
   public colorFilters :   ColorFilter[] = [];
 
-  public items        :   Product[] = [];
-  public allItems: Product[] = [];
-  public products: Product[] = [];
+  public items        :   Products[] = [];
+  public allItems: Products[] = [];
+  public products: Products[] = [];
   public tags         :   any[] = [];
   public colors       :   any[] = [];
 
@@ -110,23 +111,23 @@ export class ProductLeftSidebarComponent implements OnInit {
    }
 
      // Initialize filetr Items
-  public filterItems(): Product[] {
-    return this.items.filter((item: Product) => {
+  public filterItems(): Products[] {
+    return this.items.filter((item: Products) => {
         const Colors: boolean = this.colorFilters.reduce((prev, curr) => { // Match Color
-          if(item.colors){
-            if (item.colors.includes(curr.color)) {
+          if(item.id){
+            if (item.categories) {
               return prev && true;
             }
           }
         }, true);
-        const Tags: boolean = this.tagsFilters.reduce((prev, curr) => { // Match Tags
-          if(item.tags) {
-            if (item.tags.includes(curr)) {
-              return prev && true;
-            }
-          }
-        }, true);
-        return Colors && Tags; // return true
+        // const Tags: boolean = this.tagsFilters.reduce((prev, curr) => { // Match Tags
+        //   if(item.tags) {
+        //     if (item.tags.includes(curr)) {
+        //       return prev && true;
+        //     }
+        //   }
+        // }, true);
+        return Colors; // return true
     });
 
 }
@@ -156,7 +157,7 @@ public onPageChanged(event){
     console.log(this.products);
 
 
-   this.allItems = this.products.filter((item: Product) => {
+   this.allItems = this.products.filter((item: Products) => {
      return item.price >= price.priceFrom && item.price <= price.priceTo
     });
      console.log(this.products);
@@ -167,7 +168,7 @@ onBrendsChanged(newBrend) {
   console.log(newBrend);
   this.allItems = newBrend === 'all' ? this.products : this.products.filter(
 
-    item => item.brand === newBrend
+    item => item.shop.name === newBrend
   )
   console.log(this.allItems);
 

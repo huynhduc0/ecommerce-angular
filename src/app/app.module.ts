@@ -1,3 +1,4 @@
+import { ProductVipService } from './components/shop/home-five/product-vip.service';
 import { StarRatingModule } from 'angular-rating-star';
 import { CategoriesService } from './components/shared/categories-menu/categories.service';
 
@@ -58,6 +59,7 @@ import {BannerService} from "./components/shop/home-five/banner.service";
   },UserService,
     BannerService,
     CategoriesService,
+    ProductVipService
   ],
   bootstrap: [AppComponent]
 })

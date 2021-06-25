@@ -1,3 +1,5 @@
+import { Products } from 'src/app/modals/product-vip.model';
+import { MEDIA_URL } from './../../../../constant/url.constant';
 import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { ProductService } from 'src/app/components/shared/services/product.service';
@@ -21,8 +23,8 @@ export class ProductDetailsComponent implements OnInit {
   @ViewChild('zoomViewer', { static: true }) zoomViewer;
   @ViewChild(SwiperDirective, { static: true }) directiveRef: SwiperDirective;
 
-  public product            :   Product = {};
-  public products           :   Product[] = [];
+  public product            :   Products = new Products();
+  public products           :   Products[] = [];
 
   public image: any;
   public zoomImage: any;
@@ -31,10 +33,12 @@ export class ProductDetailsComponent implements OnInit {
 
   index: number;
   bigProductImageIndex = 0;
+  public imageUrl = MEDIA_URL;
 
   constructor(private route: ActivatedRoute, public productsService: ProductService, public dialog: MatDialog, private router: Router, private cartService: CartService) {
     this.route.params.subscribe(params => {
       const id = +params['id'];
+      console.log("we are here")
       this.productsService.getProduct(id).subscribe(product => this.product = product)
     });
    }
@@ -114,19 +118,19 @@ public decrement() {
 getRelatedProducts() {
   this.productsService.getProducts()
   .subscribe(
-    (product: Product[]) => {
+    (product: Products[]) => {
       this.products = product
     });
 }
 
   // Add to cart
-  public addToCart(product: Product, quantity) {
+  public addToCart(product: Products, quantity) {
     if (quantity == 0) return false;
     this.cartService.addToCart(product, parseInt(quantity));
   }
 
    // Add to cart
-   public buyNow(product: Product, quantity) {
+   public buyNow(product: Products, quantity) {
     if (quantity > 0)
       this.cartService.addToCart(product,parseInt(quantity));
       this.router.navigate(['/pages/checkout']);

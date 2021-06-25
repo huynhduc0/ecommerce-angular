@@ -1,9 +1,13 @@
+import { PRODUCT_URL } from './../../../constant/url.constant';
+import { Products } from './../../../modals/product-vip.model';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Subscriber } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Product } from 'src/app/modals/product.model';
 import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/operators';
+import { PRODUCT_RECOMMEND } from 'src/app/constant/url.constant';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 
@@ -22,13 +26,18 @@ export class ProductService {
 
   public compareProducts : BehaviorSubject<Product[]> = new BehaviorSubject([]);
   public observer   :  Subscriber<{}>;
-
-  constructor(private httpClient: HttpClient, public snackBar: MatSnackBar) {
+  httpHeader = {
+    headers: new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.loggedInUserValue.token}`,
+      'Content-Type': 'application/json'
+    })
+  }
+  constructor(private httpClient: HttpClient, public snackBar: MatSnackBar,private  authService: AuthService) {
    this.compareProducts.subscribe(products => products = products)
   }
 
-  private products(): Observable<Product[]> {
-    return this.httpClient.get<Product[]>('assets/data/products2.json');
+  private products(): Observable<Products[]> {
+    return this.httpClient.get<Products[]>('assets/data/products2.json');
   }
 
   public banners(): Observable<any[]>{
@@ -42,20 +51,24 @@ export class ProductService {
     }
 
     // Get Banners
-    public getProducts(): Observable<Product[]> {
+    public getProducts(): Observable<Products[]> {
       return this.products();
     }
 
 
       // Get Products By Id
-  public getProduct(id: number): Observable<Product> {
-    return this.products().pipe(map(items => {
-      return items.find((item: Product) =>
-        { return item.id === id; });
-      }));
+  public getProduct(id: number): Observable<Products> {
+    // return this.products().pipe(map(items => {
+    //   return items.find((item: Products) =>
+    //     { return item.id; });
+    //   }));
     // return this.products.find(product=> product.id === id);
 
-    // return this.httpClient.get<Product>(this._url + 'product-' + id + '.json');
+    return this.httpClient.get<Products>(PRODUCT_URL+id,this.httpHeader).pipe(map(prods=>{
+        console.log(prods)
+        return prods
+      })
+    );
   }
 
 
@@ -110,13 +123,13 @@ public removeFromCompare(product: Product) {
 }
 
    // Get Products By category
-   public getProductByCategory(category: string): Observable<Product[]> {
+   public getProductByCategory(category: string): Observable<Products[]> {
     return this.products().pipe(map(items =>
-       items.filter((item: Product) => {
+       items.filter((item: Products) => {
          if(category == 'all')
             return item
             else
-            return item.category === category;
+            return item.categories;
 
        })
      ));

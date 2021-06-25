@@ -16,7 +16,7 @@ export class CheckoutComponent implements OnInit {
 
   amount: number;
   payments: string[] = ['Create an Account?', 'Flat Rate'];
-  paymantWay: string[] = ['Direct Bank Transfer', 'PayPal'];
+  paymantWay: string[] = ['Stripe'];
 
   constructor(private cartService: CartService, public productService: ProductService) { }
 

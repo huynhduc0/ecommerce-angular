@@ -1,3 +1,4 @@
+import { Products } from 'src/app/modals/product-vip.model';
 import { Injectable } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -33,7 +34,7 @@ public observer   :  Subscriber<{}>;
   }
 
    // Add to cart
-   public addToCart(product: Product, quantity: number) {
+   public addToCart(product: Products, quantity: number) {
     let message, status;
      var item: CartItem | boolean = false;
      // If Products exist
@@ -69,7 +70,7 @@ public observer   :  Subscriber<{}>;
 public calculateStockCounts(product: CartItem, quantity): CartItem | Boolean {
   let message, status;
   let qty   = product.quantity + quantity;
-  let stock = product.product.stock;
+  let stock = product.product.productProperties[0].options[0].subQuantity;
   if(stock < qty) {
     // this.toastrService.error('You can not add more items than available. In stock '+ stock +' items.');
     this.snackBar.open('You can not choose more items than available. In stock ' + stock + ' items.', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
@@ -94,7 +95,7 @@ public removeFromCart(item: CartItem) {
 public getTotalAmount(): Observable<number> {
   return this.cartItems.pipe(map((product: CartItem[]) => {
     return products.reduce((prev, curr: CartItem) => {
-      return prev + curr.product.price * curr.quantity;
+      return prev + curr.product.productProperties[0].options[0].subPrice * curr.quantity
     }, 0);
   }));
 }

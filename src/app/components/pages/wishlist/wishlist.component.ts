@@ -1,3 +1,4 @@
+import { Products } from 'src/app/modals/product-vip.model';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Product } from 'src/app/modals/product.model';
@@ -23,10 +24,10 @@ export class WishlistComponent implements OnInit {
   }
 
    // Add to cart
- public addToCart(product: Product,  quantity: number = 1) {
+ public addToCart(product: Products,  quantity: number = 1) {
   if (quantity > 0)
    this.cartService.addToCart(product,quantity);
-   this.wishlistService.removeFromWishlist(product);
+  //  this.wishlistService.removeFromWishlist(product);
 }
 
 // Remove from wishlist

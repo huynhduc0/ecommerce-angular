@@ -7,6 +7,6 @@ export class ProductOption {
   id: bigint
   name: string
   value: string
-  subQuantity: bigint
-  subPrice: bigint
+  subQuantity: Number
+  subPrice: number
 }

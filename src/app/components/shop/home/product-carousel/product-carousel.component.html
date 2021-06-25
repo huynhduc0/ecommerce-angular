@@ -15,11 +15,7 @@
 
                         <div class="stars">
                           <!-- <app-star-rating [rating]="2"></app-star-rating> -->
-                           <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-                           <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-                           <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-                           <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
-                           <mat-icon class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
+                           <mat-icon *ngFor="let e of [].constructor(2); let i = index" class="mat-icon-xs mat-icon material-icons ng-star-inserted">star_rate</mat-icon>
                         </div>
                         <div class="price-wrap" fxLayout="row" fxLayoutAlign="space-between center">
                          <p>${{product.productProperties[0].options[0].subPrice | number : '1.2-2'}}</p>

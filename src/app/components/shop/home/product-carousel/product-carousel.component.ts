@@ -83,7 +83,7 @@ export class ProductCarouselComponent implements OnInit {
   }
 
    // Add to cart
-   public addToCart(product: Product,  quantity: number = 1) {
+   public addToCart(product: Products,  quantity: number = 1) {
     this.cartService.addToCart(product,quantity);
     console.log(product, quantity);
   }

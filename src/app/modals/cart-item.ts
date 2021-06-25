@@ -1,7 +1,8 @@
-import { Product } from './product.model';
+import { Products } from 'src/app/modals/product-vip.model';
+
 
 // cart items
 export interface CartItem {
-  product: Product;
+  product: Products;
   quantity: number;
 }

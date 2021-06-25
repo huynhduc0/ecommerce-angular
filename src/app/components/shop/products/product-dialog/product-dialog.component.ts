@@ -1,3 +1,4 @@
+import { Products } from 'src/app/modals/product-vip.model';
 import { Component, OnInit, Inject } from '@angular/core';
 import { ProductService } from 'src/app/components/shared/services/product.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class ProductDialogComponent implements OnInit {
 
-  public products           :   Product[] = [];
+  public products           :   Products[] = [];
   public counter            :   number = 1;
   public variantImage       :   any = '';
   public selectedColor      :   any = '';
@@ -26,7 +27,7 @@ export class ProductDialogComponent implements OnInit {
   }
 
 
-  public addToCart(product: Product, quantity) {
+  public addToCart(product: Products, quantity) {
     if (quantity == 0) return false;
     this.cartService.addToCart(product, parseInt(quantity));
   }

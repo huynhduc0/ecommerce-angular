@@ -1,3 +1,4 @@
+import { Products } from './../../../../modals/product-vip.model';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { ProductService } from 'src/app/components/shared/services/product.service';
@@ -9,7 +10,7 @@ import { ProductService } from 'src/app/components/shared/services/product.servi
 })
 export class PopularProductsComponent implements OnInit {
 
-  public products: Product[];
+  public products: Products[];
   public product            :   Product = {};
 
    constructor(private productService: ProductService) { }

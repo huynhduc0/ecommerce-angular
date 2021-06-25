@@ -1,8 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { CartItem } from 'src/app/modals/cart-item';
 import { ProductService } from '../../shared/services/product.service';
 import { CartService } from '../../shared/services/cart.service';
+import { Products } from 'src/app/modals/product-vip.model';
 
 @Component({
   selector: 'app-home-two',
@@ -12,16 +14,16 @@ import { CartService } from '../../shared/services/cart.service';
 export class HomeTwoComponent implements OnInit {
 
 
-  products: Product[];
+  products: Products[];
   public banners = [];
 
   shoppingCartItems: CartItem[] = [];
   wishlistItems  :   Product[] = [];
 
-  public featuredProducts: Array<Product>;
-  public onSaleProducts: Array<Product>;
-  public topRatedProducts: Array<Product>;
-  public newArrivalsProducts: Array<Product>;
+  public featuredProducts: Array<Products>;
+  public onSaleProducts: Array<Products>;
+  public topRatedProducts: Array<Products>;
+  public newArrivalsProducts: Array<Products>;
 
   public slides = [
     { title: 'Huge sale', subtitle: 'Up to 70%', image: 'assets/images/carousel/banner1.jpg' },
@@ -37,7 +39,7 @@ export class HomeTwoComponent implements OnInit {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
     this.productService.getProducts()
     .subscribe(
-      (product: Product[]) => {
+      (product: Products[]) => {
         this.products = product;
       }
     )

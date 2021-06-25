@@ -1,3 +1,4 @@
+import { MEDIA_URL } from './../../../../../constant/url.constant';
 import { Component, OnInit, Inject, ViewEncapsulation, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ProductService } from 'src/app/components/shared/services/product.service';
@@ -12,7 +13,7 @@ import { Product } from 'src/app/modals/product.model';
 export class ProductZoomComponent implements OnInit {
   public product;
   public selectedProductImageIndex;
-
+  public imageUrl = MEDIA_URL
   @ViewChild('zoomImage', { static: true }) zoomImage;
 
   constructor( private productsService: ProductService, public dialogRef: MatDialogRef<ProductZoomComponent>,

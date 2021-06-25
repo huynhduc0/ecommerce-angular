@@ -1,3 +1,4 @@
+import { Products } from 'src/app/modals/product-vip.model';
 import { Component, OnInit } from '@angular/core';
 import { Product } from 'src/app/modals/product.model';
 import { CartItem } from 'src/app/modals/cart-item';
@@ -12,7 +13,7 @@ import { CartService } from '../../shared/services/cart.service';
 export class HomeThreeComponent implements OnInit {
 
 
-  products: Product[];
+  products: Products[];
   public banners = [];
 
   shoppingCartItems: CartItem[] = [];
@@ -37,7 +38,7 @@ export class HomeThreeComponent implements OnInit {
     this.cartService.getItems().subscribe(shoppingCartItems => this.shoppingCartItems = shoppingCartItems);
     this.productService.getProducts()
     .subscribe(
-      (product: Product[]) =>  {
+      (product: Products[]) =>  {
         this.products = product;
         console.log(product);
       }
